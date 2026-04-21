@@ -1,0 +1,19 @@
+title Usar ítem del inventario
+
+participant personaje
+participant inventario
+participant item
+
+autoactivation on
+
+personaje->inventario: usarItem()
+inventario->item: puedeUsarse()
+inventario<<--item: bool
+
+alt [bool == true]
+    inventario->item: usarItem()
+    item->personaje: aplicarEfecto()
+    inventario->inventario: eliminarItem()
+else [bool == false]
+    personaje<<--inventario: item no disponible
+end
